@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "es6",
+    "module": "commonjs",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "noResolve": false,
+    "strictNullChecks": false,
+    "pretty": true,
+    "moduleResolution": "node",
+    "baseUrl": "."
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    "typings/**/*"
+  ],
+  "rootDirs": [
+    "./src"
+  ]
+}

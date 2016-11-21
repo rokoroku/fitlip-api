@@ -1,0 +1,6 @@
+node_modules
+build
+typings
+.git
+.idea
+.vscode
