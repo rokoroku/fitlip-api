@@ -3,14 +3,7 @@ const getPixels = require('get-pixels');
 const getRgbaPalette = require('get-rgba-palette');
 const getImageColors = require('get-image-colors');
 
-// to improve performance
-let filterCount = 0;
-
 function filter(pixels, index) {
-  if (++filterCount % 2 == 0) {
-    filterCount = 0;
-    return false;
-  }
 
   const red = pixels[index];
   const green = pixels[index + 1];
@@ -31,16 +24,16 @@ function filter(pixels, index) {
   // TODO: drop colors if too much populations (e.g. color of skin)
   return ((0 <= hue && hue <= 25) || (325 <= hue && hue <= 360))
     && saturation >= 0.5
-    && lightness >= 0.2;
+    && lightness >= 0.3 && lightness <= 0.9;
 }
 
 function getWeight(color: Chroma.Color) {
-  const hsl = color.get('hsl.h');
-  return Math.abs(hsl[0] - 170);
+  const hue = color.get('hsl.h');
+  return hue < 180 ? hue : 360 - hue;
 }
 
 function colorComparator(color1: Chroma.Color, color2: Chroma.Color) {
-  return getWeight(color2) - getWeight(color1);
+  return getWeight(color1) - getWeight(color2);
 }
 
 export default function paletteFromBitmap(path: string): Promise<any> {
@@ -50,10 +43,9 @@ export default function paletteFromBitmap(path: string): Promise<any> {
         return reject(err);
       }
       try {
-        const palette = (getRgbaPalette(pixels.data, 5, 20, filter) || [])
+        const palette = (getRgbaPalette(pixels.data, 10, 20, filter) || [])
           .map((rgba) => chroma(rgba))
           .sort(colorComparator);
-
         resolve(palette);
       } catch (error) {
         resolve([]);

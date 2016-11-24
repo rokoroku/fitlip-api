@@ -12,7 +12,7 @@ export default class LambdaProxy {
 
   getBody() {
     if (this.event) {
-      return this.event.body ? JSON.parse(this.event.body) : event;
+      return this.event.body ? JSON.parse(this.event.body) : this.event;
     }
     return null;
   }

@@ -7,10 +7,8 @@ describe('Palette', () => {
   it('should pick color palette from image', async () => {
     const source = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRAwZrMsYhKA5gej2RaFHSaHZ5pAajfUy9Vs2Ve2TnfhQeh1FyM';
     const palette = await getPalette(source);
-    const hex = palette.map(color => color.hex());
-
-    console.log(hex);
-    expect(hex).to.be.an('array').that.is.not.empty;
+    console.log(palette.map(color => color.hex()));
+    expect(palette).to.be.an('array').that.is.not.empty;
   });
 });
 
@@ -48,7 +46,7 @@ describe('Search', () => {
     console.log(palette.map(p => p.hex()));
     console.log(searchResult);
     expect(searchResult).to.be.an('array').that.is.not.empty;
-    expect(searchResult[0]).to.have.property('색상').that.contains('핑크');
+    expect(searchResult[0]).to.have.property('색상').that.contains('기브 인');
   });
 
   it('should pick colors #4', async () => {
@@ -60,4 +58,5 @@ describe('Search', () => {
     expect(searchResult).to.be.an('array').that.is.not.empty;
     expect(searchResult[0]).to.have.property('색상').that.contains('키스미');
   });
+
 });
